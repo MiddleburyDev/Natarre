@@ -22,6 +22,11 @@ class StoriesController < ApplicationController
       @user = User.find_by_id session[:user_id]
     end
 
+	def new
+		@story = Story.new
+	end
+
+
     @story = Story.find_by_id(params[:id])
     @story ||= Story.find_by_id(params[:story_id])
     if @story
@@ -30,6 +35,7 @@ class StoriesController < ApplicationController
 
     end
   end
+
 
   def new
     @story = Story.new
@@ -57,5 +63,8 @@ class StoriesController < ApplicationController
     show
     redirect_to @story
   end
+
+
+
 
 end

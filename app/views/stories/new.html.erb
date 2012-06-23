@@ -1,14 +1,33 @@
+
 <%= render "layouts/header" %>
 <div id="main-container">
 	<div id="main" class="main main-content">
-		<%= form_for @story do |f| %>
-		<%= f.label :title %>:
-		<%= f.text_field :title %><br />
-
-		<%= f.label :content %>:
-		<%= f.text_area :content %><br />
-
-		<%= f.submit %>
+		<%= form_tag({:action => :upload}, :multipart => true) do %>
+			<%= text_field_tag 'title', nil, :placeholder=> "Story Title", :maxlength => 80, :size => 80, :class => "title-input" %>
+			<%= label_tag 'content', 'Your story:' %>
+			<%= text_area_tag 'content', nil, :rows => 10, :columns => 80 %>
+			<%= label_tag 'audio', 'Optional recorded presentation of your story:' %>
+		    <%= file_field_tag 'audio' %>
+			<%= label_tag 'picture', 'Story thumnail:' %>    
+			<%= file_field_tag 'picture' %>
+			<%= submit_tag 'Publish!' %>
 		<% end %>
 	</div>
 </div>
+
+<%
+=begin
+%>
+<%= form_for @story do |f| %>
+  <%= f.label :title %>:
+  <%= f.text_field :title %><br />
+
+  <%= f.label :content %>:
+  <%= f.text_area :content %><br />
+  <%= f.submit %>
+<% end %>
+<%
+=end
+%>
+
+
