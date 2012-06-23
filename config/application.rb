@@ -11,6 +11,9 @@ end
 
 module Natarre
   class Application < Rails::Application
+
+    config.access_request.SOUNDCLOUD_ID = "c4ce5019d3a69914be53b15441d3b638"
+    config.access_request.SOUNDCLOUD_SECRET = "ec6fe1ce7bcd105266f0b705d431c7fe"
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

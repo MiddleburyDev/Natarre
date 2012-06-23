@@ -10,10 +10,8 @@ Natarre::Application.routes.draw do
 
   get "mobile_api/upload"
 
-  get "stories/new"
-  post "stories/create"
-  get "stories" => "stories#index", :as => :stories_index
   post "stories/create" => "stories#create", :as => :stories
+  get "stories" => "stories#index", :as => :stories_index  
   get "stories/new" => "stories#new", :as => :new_story
   get "story/:id" => "stories#show"
 

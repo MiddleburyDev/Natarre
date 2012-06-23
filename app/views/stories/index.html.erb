@@ -1,9 +1,11 @@
 <h1>Stories View</h1>
+<% if @stories %> # should be !@stories.empty?, but for some reason @stories is nil when no stories exist
 <% @stories.each do |s| %>
-
+<%= image_tag s.thumbnail.url %>
 <h3><%= link_to s.title, "story/"+s.id.to_s %></h3>
 <p><%= s.content %></p>
-
-
-
+<% end %>
+<% else %>
+<h3>No stories yet!</h3>
+<%= link_to 'Record a new story', new_story_path %>
 <% end %>
