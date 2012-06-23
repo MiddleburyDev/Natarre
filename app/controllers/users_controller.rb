@@ -8,13 +8,13 @@ class UsersController < ApplicationController
 
 	def login
 
-
 	end
 
 	def create
 		@user = User.new params[:user]
+		@user.password=Digest::MD5.hexdigest(@user.password)
 		if @user.save
-			redirect_to :root_path
+			redirect_to login_path
 		else
 
 		end

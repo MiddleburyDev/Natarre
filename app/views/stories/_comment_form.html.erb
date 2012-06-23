@@ -1,0 +1,13 @@
+<%= form_tag ({:controller => "stories", :action => "add_comment"}) do %>
+
+	<%= hidden_field_tag(:story_id, @story.id) %>
+	<%= hidden_field_tag(:user_id, @user.id) %>
+
+	<%= label_tag "Add a Comment" %>:
+	<%= text_field_tag :content %>
+
+	<%= submit_tag "submit" %>
+
+
+<% end %>
+
