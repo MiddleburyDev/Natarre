@@ -1,0 +1,9 @@
+<h1>Stories View</h1>
+<% @stories.each do |s| %>
+
+<h3><%= link_to s.title, "story/"+s.id.to_s %></h3>
+<p><%= s.content %></p>
+
+
+
+<% end %>
