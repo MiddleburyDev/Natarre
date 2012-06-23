@@ -5,8 +5,8 @@
 #   gem 'sqlite3'
 development:
   adapter: postgresql
-  username: rails
-  database: rails_db
+  username: natarre
+  database: natarre_db
   password:
   pool: 5
   timeout: 5000
