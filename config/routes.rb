@@ -3,6 +3,8 @@ Natarre::Application.routes.draw do
   get "stories/new"
   post "stories/create"
 
+  get "prompts/new" => "prompts#new", :as => :new_prompt
+  post "prompts/create" => "prompts#create", :as => :create_prompt
   get "prompts" => "stories#prompts", :as => :prompts
   get "popular" => "stories#popular", :as => :popular
   get "stories" => "stories#index", :as => :stories_index
