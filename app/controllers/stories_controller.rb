@@ -3,10 +3,16 @@ class StoriesController < ApplicationController
 
 	def index
 		@stories = Story.all(:order => "created_at DESC")
+		@stories ||= Array.new
 	end
 
 	def show
 		@story = Story.find_by_id(params[:id])
+		if @story
+
+		else
+
+		end
 	end
 
 	def new
