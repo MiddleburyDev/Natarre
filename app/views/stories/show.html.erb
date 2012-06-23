@@ -1,2 +1,11 @@
 <h1><%= @story.title %></h1>
 <p><%= @story.content %></p>
+<% if @user %>
+<h4>Add Comment</h4>
+<%= render "comment_form" %>
+<% @story.comments.sort! do |b,a| a.created_at <=> b.created_at end %>
+<% @story.comments.each do |c| %>
+<p><%= c.user.name %>, <%= c.created_at.strftime("%m-%d-%y %H:%M")  %> - <%= c.content %></p>
+<% end %>
+
+<% end %>
