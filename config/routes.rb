@@ -36,7 +36,7 @@ Natarre::Application.routes.draw do
   match "/mobile/api/login/natarre" => "mobile_api#login"
 
 
-  root :to => "home#index"
+  root :to => "stories#prompts"
 
 
 end
