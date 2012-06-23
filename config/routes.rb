@@ -1,5 +1,15 @@
 Natarre::Application.routes.draw do
 
+  get "mobile_api/register"
+
+  get "mobile_api/login"
+
+  get "mobile_api/fb_login"
+
+  get "mobile_api/twitter_login"
+
+  get "mobile_api/upload"
+
   get "stories/new"
   post "stories/create"
   get "stories" => "stories#index", :as => :stories_index
@@ -10,6 +20,8 @@ Natarre::Application.routes.draw do
   get "register" => "users#register", :as => :register
   match "create" => "users#create", :as => :users
 
+  match "mobile/api/register" => "mobile_api#register"
+  match "/mobile/api/login/natarre" => "mobile_api#login"
 
 
   root :to => "home#index"
