@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
 
   has_many :stories
   has_many :votes
+  has_many :lists
   has_many :comments
 
   def self.authenticate email, password
