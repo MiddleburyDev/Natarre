@@ -1,7 +1,8 @@
 <%= render "layouts/header" %>
 <div id="main-container">
-	<div id="main" class="main main-content">
+	<div id="main" class="main main-content prompt">
 		<h1><%= @prompt.question %></h1>
+		<%= link_to "Respond to this question", new_story_path+"/"+@prompt.id.to_s, :class => "sub-heading button" %>
 		<% if @prompt.stories.empty? %>
 		<p>No one has responded to this prompt yet. <%= link_to "Be the first.", new_story_path %></p>
 		<% else %>
@@ -26,6 +27,5 @@
 
 		<% end %>
 		<% end %>
-		<p><%= link_to "Respond to this question", new_story_path+"/"+@prompt.id.to_s, :class => "sub-heading" %></p>
 	</div>
 </div>

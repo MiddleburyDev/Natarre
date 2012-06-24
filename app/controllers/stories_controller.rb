@@ -24,7 +24,9 @@ class StoriesController < ApplicationController
   end
   def popular
     @stories = Story.all(:order => "created_at DESC")
-    @stories.sort! do |a,b| b.votes.size/b.views <=> a.votes.size/a.views end
+    @stories.sort! do |a,b| 
+      b.votes.size.to_f/b.views.to_f<=> a.votes.size.to_f/a.views.to_f 
+    end
   end
 
   def show

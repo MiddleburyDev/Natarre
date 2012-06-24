@@ -1,6 +1,6 @@
 class MobileApiController < ApplicationController
   def register
-    if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
+    # if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
       @user = User.new
       @user.name = params[:name]
       @user.email  = params[:email]
@@ -12,14 +12,14 @@ class MobileApiController < ApplicationController
       else
         @r = MobileApiError.new
       end
-    else
-      @r = MobileApiError.new
-    end
+    # else
+    #   @r = MobileApiError.new
+    # end
     render :json => @r
   end
 
   def login
-    if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
+    # if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
       @user = User.authenticate params[:email], params[:password]
       if @user
         @r = MobileApiResponse.new
@@ -28,9 +28,9 @@ class MobileApiController < ApplicationController
       else
         @r = MobileApiError.new 1
       end
-    else
-      @r = MobileApiError.new 2
-    end
+    # else
+    #   @r = MobileApiError.new 2
+    # end
     render :json => @r
   end
 
@@ -41,7 +41,7 @@ class MobileApiController < ApplicationController
   end
 
   def upload
-    if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
+    # if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
       @user = User.find_by_id(params[:user_id])
       @story = Story.new
       @story.title = params[:title]
@@ -72,15 +72,15 @@ class MobileApiController < ApplicationController
       else
         @r = MobileApiError.new 1
       end
-    else
-      @r = MobileApiError.new 2
-    end
+    # else
+    #   @r = MobileApiError.new 2
+    # end
     render :json => @r
 
   end
 
   def comment
-    if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
+    # if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
       story_id=params[:story_id]
       user_id=params[:user_id]
       content=params[:comment]
@@ -93,14 +93,14 @@ class MobileApiController < ApplicationController
       else
         @r = MobileApiError.new
       end
-    else
-      @r = MobileApiError.new
-    end
+    # else
+    #   @r = MobileApiError.new
+    # end
     render :json => @r
   end
   #443f730dcd996415d3cce948bbc3362c
   def story
-    if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
+    # if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
       @story = Story.find_by_id params[:story_id]
       if @story
         if @story.has_audio
@@ -120,9 +120,9 @@ class MobileApiController < ApplicationController
           :thumbnail_file_url => thumbnail_url,
           :error_present => false
         }
-      else
-        @r = MobileApiError.new
-      end
+      # else
+      #   @r = MobileApiError.new
+      # end
     else
       @r = MobileApiError.new
     end
@@ -130,29 +130,29 @@ class MobileApiController < ApplicationController
   end
 
   def this_week
-    if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
+    # if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
       user_id = params[:user_id]
       @prompt = Prompt.find(:all,:order => "created_at DESC").first
       @r=@prompt
 
-    else
-      @r = MobileApiError.new
-    end
+    # else
+    #   @r = MobileApiError.new
+    # end
     render :json => @r
   end
 
   def all_prompts
-    if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
+    # if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
       @prompts = Prompt.all
       @r=@prompts
-    else
-      @r = MobileApiError.new
-    end
+    # else
+    #   @r = MobileApiError.new
+    # end
     render :json => @r
   end
 
   def forprompt
-    if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
+    # if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
       @prompt = Prompt.find(params[:prompt_ID])
       @r = Array.new
       @prompt.stories.each do |s|
@@ -174,15 +174,15 @@ class MobileApiController < ApplicationController
           :error_present => false
           })
       end
-    else
-      @r = MobileApiError.new
-    end
+    # else
+    #   @r = MobileApiError.new
+    # end
     render :json => @r
   end
   def popular
-    if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
+    # if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
       @stories = Story.all(:order => "created_at DESC")
-      @stories.sort! do |a,b| b.votes.size/b.views <=> a.votes.size/a.views end
+      @stories.sort! do |a,b| b.votes.size.to_f/b.views.to_f <=> a.votes.size.to_f/a.views.to_f end
         @r = Array.new
         @stories.each do |s|
           if s.has_audio
@@ -203,14 +203,14 @@ class MobileApiController < ApplicationController
             :error_present => false
             })
         end
-      else
-        @r = MobileApiError.new
-      end
+      # else
+      #   @r = MobileApiError.new
+      # end
       render :json => @r
     end
 
     def favorites
-      if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
+      # if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
         @user = User.find_by_id params[:user_ID]
         @r = Array.new
         if(@user)
@@ -238,9 +238,9 @@ class MobileApiController < ApplicationController
         else
           @r = MobileApiError.new
         end
-      else
-        @r = MobileApiError.new
-      end
+      # else
+      #   @r = MobileApiError.new
+      # end
     end
     def reading_list
 
