@@ -14,7 +14,9 @@ class StoriesController < ApplicationController
     else
       @prompt = Prompt.find(:all,:order => "created_at DESC").first
     end
-    @stories = Story.where(:prompt_id => @prompt.id).find(:all,:order => "created_at DESC" )
+    if @prompt
+      @stories = Story.where(:prompt_id => @prompt.id).find(:all,:order => "created_at DESC" )
+    end
   end
   def prompts
     @prompts = Prompt.all(:order => "created_at DESC")
