@@ -1,6 +1,14 @@
 <header id="main-header" class="main-header">
 	<div id="login-stuff">
+		<% if session[:user_id] %>
+		<%= link_to "Account", profile_path %>
+		<% @u=User.where(:id => session[:user_id]).first %>
+		<% a = '<img src="http://graph.facebook.com/'+@u.fb_id.to_s+'/picture" alt=""/>' %>
+		<%= a.html_safe if @u.fb_id %>
+		<% else %>
 		<%= link_to "Login", login_path %>
+		<%= link_to "Register", register_path %>
+		<% end %>
 	</div>
 	<div id="header-content" class="header-content">
 		<nav id="main-nav" class="main-nav">

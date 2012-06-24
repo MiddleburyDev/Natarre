@@ -75,8 +75,12 @@
  			font-family: Geared, serif;
  			#login-stuff {
  				float:right;
- 				padding:20px 50px;
+ 				padding:10px 40px;
  				font-size:25px;
+ 				a {
+ 					display: inline-block;
+ 					padding: 10px;
+ 				}
  			}
  			#header-content {
  				padding-top:60px;
@@ -113,8 +117,47 @@
  			#main {
  				width:800px;
  				margin: 0 auto;
- 				font-family: sans-serif;
+ 				font-family: "Georgia",serif;
  				font-weight: lighter;
+ 				#registration-form {
+ 					text-align:center;
+ 					font-size:25px;
+ 					input, button {
+ 						font-family: Geared, serif;
+ 						font-weight:lighter;
+ 						text-align:center;
+ 						margin:10px;
+ 						font-size:25px;
+ 					}
+ 					#fb-login-button,
+ 					#twitter-login-button {
+ 						width:249px;
+ 						height:44px;
+ 						border:0;
+ 						background-color: transparent;
+ 						background-position-y:44px; 
+ 						&:active {
+ 							background-position-y:0; 
+ 						}
+ 					}
+ 					#fb-login-button {
+ 						background-image:url(/assets/facebook-login.png);
+ 					}
+ 					#twitter-login-button {
+ 						background-image:url(/assets/twitter-login.png);
+ 					}
+ 				}
+ 				&.edit {
+ 					text-align:center;
+ 					input, button {
+ 						font-family: Geared, serif;
+ 						font-weight:lighter;
+ 						text-align:center;
+ 						margin:10px;
+ 						padding:10px;
+ 						font-size:25px;
+ 					}
+ 				}
  				&.prompts {
  					font-family: Geared, serif;
  					font-weight:lighter;
@@ -161,7 +204,7 @@
  						padding:10px;
  					}
  					#audio {
- 						margin:0 auto;
+ 						margin:10px auto;
  					}
  					.button {
  						font-family: Geared, serif;
@@ -236,7 +279,7 @@
  					footer {
  						font-size:12px;
  					}
- 					audio {
+ 					.mejs-container.mejs-audio {
  						width:100%;
  					}
  				}
@@ -260,5 +303,9 @@
  			text-align:center;
  		}
  	}
+ }
+ .sub-heading {
+ 	font-family: "Georgia",serif;
+ 	font-weight: lighter; 					
  }
 

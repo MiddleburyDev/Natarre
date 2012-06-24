@@ -13,7 +13,13 @@
 			<% if s.has_audio %>
 			<audio src="http://s3.amazonaws.com/natarre.objects/<%= s.token %>/<%= s.token %>.mp3" controls></audio>
 			<% end %>
-			<p><%= s.content %></p>
+			<% if !s.content.empty? %>
+				<% if s.content.html_safe[0,500] != s.content.html_safe %>
+					<p><%= s.content.html_safe[0,500]+"... "+link_to("Read More",s) %></p>
+				<% else %>
+					<p><%= s.content.html_safe %></p>
+				<% end %>
+			<% end %>
 			<footer>
 				<%= s.comments.size %> Comments | <%= link_to "Add a Comment", s %>
 			</footer>
@@ -21,6 +27,6 @@
 
 		<% end %>
 		<% end %>
-		<p><%= link_to "Respond to this question", new_story_path+"/"+@prompt.id.to_s %></p>
+		<p><%= link_to "Respond to this question", new_story_path+"/"+@prompt.id.to_s, :class => "sub-heading" %></p>
 	</div>
 </div>

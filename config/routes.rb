@@ -19,6 +19,10 @@ Natarre::Application.routes.draw do
   get "story/:id" => "stories#show", :as => :story
   match "comments/new" => "stories#add_comment", :as => :comments
 
+  match "user/edit" => "users#edit", :as => :profile
+  match "user/update" => "users#update", :as => :update_profile
+
+
   match "session/create" => "sessions#create"
   match "session/destroy" => "sessions#destroy"
 

@@ -1,17 +1,23 @@
 <%= render "layouts/header" %>
 <div id="main-container">
 	<div id="main" class="main main-content prompts">
-		<%= form_for @user do |f| %>
-		<%= f.label :name %>:
-		<%= f.text_field :name %><br />
+		<div id="registration-form">
+			<div id="fb-image"></div>
+			<%= form_for @user do |f| %>
 
-		<%= f.label :email %>:
-		<%= f.text_field :email %><br />
+			<%= f.text_field :name, :placeholder => "Name", :id => "name" %><br />
 
-		<%= f.label :password %>:
-		<%= f.password_field :password %><br />
+			<%= f.hidden_field :fb_id, :id => "fb_id" %>
 
-		<%= f.submit %>
-		<% end %>
+			<%= f.text_field :email, :placeholder => "Email", :id => "email" %><br />
+
+			<%= f.password_field :password, :placeholder => "Password", :id => "password" %><br />
+
+			<%= f.submit "Register" %>
+			<% end %>
+
+			<button id="fb-login-button"></button>
+			<button id="twitter-login-button"></button>
+		</div>
 	</div>
 </div>

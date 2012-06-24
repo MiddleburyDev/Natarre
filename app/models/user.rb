@@ -10,4 +10,11 @@ class User < ActiveRecord::Base
   def self.authenticate email, password
   	User.where(:email=>email,:password=>password).first
   end
+  def has_voted_for? story_id
+  	if Vote.where( :user_id => @attributes["id"], :story_id => story_id ).empty?
+  		return false
+  	else
+  		return true
+  	end
+  end
 end

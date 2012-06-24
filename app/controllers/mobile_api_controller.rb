@@ -94,21 +94,117 @@ class MobileApiController < ApplicationController
     end
     render :json => @r
   end
-
+  #443f730dcd996415d3cce948bbc3362c
   def story
     if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
       @story = Story.find_by_id params[:story_id]
-      @story.user_name = @story.user.name
-      @story.text_file_url = "http://s3.amazon.aws."
-      @story.audio_file_url
-      @story.thumbnail_file_url
-      @story.error_present
+      if @story
+        if @story.has_audio
+          audio_url = "http://s3.amazonaws.com/natarre.objects/"+@story.token+"/"+@story.token+".m4a"
+        end
+        if @story.has_thumbnail
+          thumbnail_url = "http://s3.amazonaws.com/natarre.objects/"+@story.token+"/"+@story.token+".jpg"
+        end
+        @r = {
+          :story_ID => @story.id,
+          :author_ID => @story.user_id,
+          :author_name => @story.user.name,
+          :title => @story.title,
+          :date_created => @story.created_at.to_i,
+          :content => @story.content,
+          :audio_file_url => audio_url,
+          :thumbnail_file_url => thumbnail_url,
+          :error_present => false
+        }
+      else
+        @r = MobileApiError.new
+      end
     else
-
+      @r = MobileApiError.new
     end
+    render :json => @r
   end
 
+  def this_week
+    if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
+      user_id = params[:user_id]
+      @prompt = Prompt.find(:all,:order => "created_at DESC").first
+      @r=@prompt
 
+    else
+      @r = MobileApiError.new
+    end
+    render :json => @r
+  end
+
+  def all_prompts
+    if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
+      @prompts = Prompt.all
+      @r=@prompts
+    else
+      @r = MobileApiError.new
+    end
+    render :json => @r
+  end
+
+  def forprompt
+    if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
+      @prompt = Prompt.find(params[:id])
+      @r = Array.new
+      @prompt.stories.each do |s|
+        if s.has_audio
+          audio_url = "http://s3.amazonaws.com/natarre.objects/"+s.token+"/"+s.token+".m4a"
+        end
+        if s.has_thumbnail
+          thumbnail_url = "http://s3.amazonaws.com/natarre.objects/"+s.token+"/"+s.token+".jpg"
+        end
+        @r.push({
+                  :story_ID => s.id,
+                  :author_ID => s.user_id,
+                  :author_name => s.user.name,
+                  :title => s.title,
+                  :date_created => s.created_at.to_i,
+                  :content => s.content,
+                  :audio_file_url => audio_url,
+                  :thumbnail_file_url => thumbnail_url,
+                  :error_present => false
+        })
+      end
+    else
+      @r = MobileApiError.new
+    end
+    render :json => @r
+  end
+  def popular
+    if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
+      @stories = Story.all(:order => "created_at DESC")
+      @r = Array.new
+      @stories.each do |s|
+        if s.has_audio
+          audio_url = "http://s3.amazonaws.com/natarre.objects/"+s.token+"/"+s.token+".m4a"
+        end
+        if s.has_thumbnail
+          thumbnail_url = "http://s3.amazonaws.com/natarre.objects/"+s.token+"/"+s.token+".jpg"
+        end
+        @r.push({
+                  :story_ID => s.id,
+                  :author_ID => s.user_id,
+                  :author_name => s.user.name,
+                  :title => s.title,
+                  :date_created => s.created_at.to_i,
+                  :content => s.content,
+                  :audio_file_url => audio_url,
+                  :thumbnail_file_url => thumbnail_url,
+                  :error_present => false
+        })
+      end
+    else
+      @r = MobileApiError.new
+    end
+    render :json => @r
+  end
+
+  
   class MobileApiError
     attr_accessor :error_number
     attr_accessor :error_string

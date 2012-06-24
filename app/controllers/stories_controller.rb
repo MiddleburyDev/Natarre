@@ -24,7 +24,10 @@ class StoriesController < ApplicationController
   end
   def popular
     @stories = Story.all(:order => "created_at DESC")
+    @stories.each do |s|
 
+
+    end
   end
 
   def show
@@ -34,7 +37,8 @@ class StoriesController < ApplicationController
     @story = Story.find_by_id(params[:id])
     @story ||= Story.find_by_id(params[:story_id])
     if @story
-
+      @story.views+=1
+      @story.save
     else
 
     end

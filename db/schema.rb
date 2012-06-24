@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120624014531) do
+ActiveRecord::Schema.define(:version => 20120624061708) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -40,11 +40,12 @@ ActiveRecord::Schema.define(:version => 20120624014531) do
     t.integer  "prompt_id"
     t.integer  "user_id"
     t.integer  "story_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
     t.string   "token"
     t.boolean  "has_audio"
     t.boolean  "has_thumbnail"
+    t.integer  "views",         :default => 0
   end
 
   create_table "users", :force => true do |t|
