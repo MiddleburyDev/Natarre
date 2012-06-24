@@ -9,11 +9,11 @@ class StoriesController < ApplicationController
 	end
 
 	def prompts
-
+    @prompt = Prompt.find(:all,:order => "created_at DESC").first
 	end
 
 	def popular
-
+    @stories = Story.all
 
 	end
 
