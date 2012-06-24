@@ -44,7 +44,8 @@ Natarre::Application.routes.draw do
   match "mobile/api/stories/forprompt" => "mobile_api#forprompt"
   match "mobile/api/stories/popular" => "mobile_api#popular"
   match "mobile/api/stories/readinglist" => "mobile_api#reading_list"
-  match "/mobile/api/stories/favorites" => "mobile_api#favorites"
+  match "mobile/api/stories/favorites" => "mobile_api#favorites"
+  match "mobile/api/add/vote" => "mobile_api#add_favorite"
 
 
 

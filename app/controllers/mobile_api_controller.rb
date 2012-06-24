@@ -243,6 +243,17 @@ class MobileApiController < ApplicationController
     # end
     render :json => @r
   end
+  def add_favorite
+    @user = User.find_by_email params[:email]
+      @vote = Vote.where(:user_id=>@user.id, :story_id=>params[:story_ID])
+      if @vote.empty?
+        @vote = Vote.new
+        @vote.story_id = params[:story_ID]
+        @vote.user_id = @user.id
+        @vote.save
+      end
+    @r = MobileApiResponse.new
+  end
   def reading_list
     @user = User.find_by_email params[:email]
     @r = Array.new
