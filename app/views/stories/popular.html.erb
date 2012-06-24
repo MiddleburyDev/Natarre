@@ -1,1 +1,9 @@
 <%= render "layouts/header" %>
+<div id="main-container">
+	<div id="main" class="main main-content">
+		<% @stories.each do |a| %>
+		<h1><%= link_to a.title, a %></h1>
+		<p><%= a.content %></p>
+		<% end %>
+	</div>
+</div>

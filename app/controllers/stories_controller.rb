@@ -13,7 +13,7 @@ class StoriesController < ApplicationController
 	end
 
 	def popular
-
+    @stories = Story.all
 
 	end
 
