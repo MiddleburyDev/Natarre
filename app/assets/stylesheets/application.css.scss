@@ -147,6 +147,32 @@
  						background-image:url(/assets/twitter-login.png);
  					}
  				}
+ 				#login-form {
+ 					text-align:center;
+ 					font-size:25px;
+ 					input, button {
+ 						font-family: Geared, serif;
+ 						font-weight:lighter;
+ 						text-align:center;
+ 						margin:10px;
+ 						padding:10px;
+ 						font-size:25px;
+ 					}
+ 					#fb-login-button,
+ 					#twitter-login-button {
+ 						width:249px;
+ 						height:44px;
+ 						border:0;
+ 						background-color: transparent;
+ 						background-position-y:44px; 
+ 						&:active {
+ 							background-position-y:0; 
+ 						}
+ 					}
+ 					#fb-login-button {
+ 						background-image:url(/assets/facebook-login.png);
+ 					}
+ 				}
  				&.edit {
  					text-align:center;
  					input, button {
@@ -289,10 +315,35 @@
  				}
 
  			}
-
+ 			.favorites_link {
+ 				padding:5px;
+ 				padding-right:30px;
+ 				background-image:url(/assets/FavoriteINACTIVE.png);
+ 				background-position: right 0px;
+ 				background-clip:none;
+ 				background-repeat: no-repeat;
+ 				&:hover,
+ 				&.active {
+	 				background-image:url(/assets/FavoriteACTIVE.png);
+ 				}
+ 			}
  			.comments-title {
  				border-bottom: 1pt solid black;
  			}
+ 			.comment {
+ 				border-top:1pt solid #666;
+ 				padding: 5px 0;
+ 			}
+ 			form {
+ 				display:inline;
+ 				.submit-button {
+	 				display:inline;
+	 				background:transparent;
+	 				border:0;
+	 				font-size: 1em;
+		 			font-family: Geared, serif;
+ 				}
+			}
  		}
  		footer.main-footer {
  			width:800px;

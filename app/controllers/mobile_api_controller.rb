@@ -26,10 +26,10 @@ class MobileApiController < ApplicationController
         @r.user_id = @user.id
         @r.token = Digest::MD5.hexdigest(@user.id.to_s+"Wi11")
       else
-        @r = MobileApiError.new
+        @r = MobileApiError.new 1
       end
     else
-      @r = MobileApiError.new
+      @r = MobileApiError.new 2
     end
     render :json => @r
   end
@@ -149,7 +149,7 @@ class MobileApiController < ApplicationController
 
   def forprompt
     if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
-      @prompt = Prompt.find(params[:id])
+      @prompt = Prompt.find(params[:prompt_ID])
       @r = Array.new
       @prompt.stories.each do |s|
         if s.has_audio
@@ -204,11 +204,18 @@ class MobileApiController < ApplicationController
     render :json => @r
   end
 
+def favorites
+  
+end
+def reading_list
+  
+end
   
   class MobileApiError
     attr_accessor :error_number
     attr_accessor :error_string
-    def initialize
+    def initialize num=-1
+      @error_number=num
       @error_present="true"
     end
   end

@@ -67,7 +67,7 @@ class StoriesController < ApplicationController
       end
       AWS::S3::S3Object.store(token+"/"+token+extension,uploaded_audio.read,AMAZON_NATARRE_BUCKET,:access => :public_read)
       has_audio=true
- 
+
     else
       has_audio=false
     end
@@ -101,4 +101,33 @@ class StoriesController < ApplicationController
     show
     redirect_to @story
   end
+
+  def add_vote
+    if session[:user_id]
+      @vote = Vote.where(:user_id=>session[:user_id], :story_id=>params[:id])
+      if @vote.empty?
+        @vote = Vote.new
+        @vote.story_id = params[:story_id]
+        @vote.user_id = params[:user_id]
+        @vote.save
+      end
+    end
+    show
+    redirect_to @story
+  end
+
+  def add_list
+    if session[:user_id]
+      @list = List.where(:user_id=>session[:user_id], :story_id=>params[:story_id])
+      if !@list
+        @list = List.new
+        @list.story_id = params[:story_id]
+        @list.user_id = params[:user_id]
+        @list.save
+      end
+    end
+    show
+    redirect_to @story
+  end
+
 end

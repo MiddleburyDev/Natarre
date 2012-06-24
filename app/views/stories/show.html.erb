@@ -9,7 +9,17 @@
 
 		<p><%= @story.content.html_safe %></p>
 		<% if @user %>
-		<h2 class="comments-title"><%= @story.comments.size %> Comment<%= "s" if @story.comments.size > 1 || @story.comments.size == 0 %></h2>
+		<h2 class="comments-title">
+			<%= @story.comments.size %> Comment<%= "s" if @story.comments.size > 1 || @story.comments.size == 0 %> | 
+			<% if(@story.votes.size > 1 || @story.votes.size == 0 ) 
+				string = "s" 
+			end %>
+			<% if @user %>
+			<% the_class="" %>
+			<% the_class = "active" if !Vote.where(:user_id=>@user.id, :story_id => @story.id).empty? %>
+			<%= link_to @story.votes.size, votes_path+"/"+@story.id.to_s, :class => "favorites_link "+the_class %>
+			<% end %>
+		</h2>
 		<%= render "comment_form" %>
 		<% end %>
 

@@ -4,7 +4,7 @@
 	<%= hidden_field_tag(:user_id, @user.id) %>
 
 	<%= label_tag "Add a Comment" %>:
-	<%= text_field_tag :content %>
+	<p><%= text_area_tag :content, nil, :rows => 5, :cols => 90 %></p>
 
 	<%= submit_tag "submit" %>
 
