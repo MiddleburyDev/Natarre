@@ -26,7 +26,9 @@
  	clear: both;
  }
 
-
+.center {
+	text-align:center;
+}
  button,
  input[type=submit] {
  	cursor: pointer;
@@ -408,6 +410,18 @@
  				&.active {
  					background-image:url(/assets/FavoriteACTIVE.png);
  				}
+ 			}
+ 			.lists_link {
+ 				padding:5px;
+ 				padding-right:30px;
+ 				background-image:url(/assets/ReadingListIcon.png);
+ 				background-position: right 0px;
+ 				background-clip:none;
+ 				background-repeat: no-repeat;
+ 				&:hover,
+ 				&.active {
+ 					background-image:url(/assets/ReadingListActive.png);
+ 				} 				
  			}
  			.comments-title {
  				border-bottom: 1pt solid black;

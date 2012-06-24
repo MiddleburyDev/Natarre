@@ -15,9 +15,12 @@
 				string = "s" 
 			end %>
 			<% if @user %>
-			<% the_class="" %>
-			<% the_class = "active" if !Vote.where(:user_id=>@user.id, :story_id => @story.id).empty? %>
-			<%= link_to @story.votes.size, votes_path+"/"+@story.id.to_s, :class => "favorites_link "+the_class %>
+			<% f_class = "" %>
+			<% f_class = "active" if !Vote.where(:user_id=>@user.id, :story_id => @story.id).empty? %>
+			<% l_class = "" %>
+			<% l_class = "active" if !List.where(:user_id=>@user.id, :story_id => @story.id).empty? %>
+			<%= link_to @story.votes.size, votes_path+"/"+@story.id.to_s, :class => "favorites_link "+f_class %>
+			<%= link_to @story.lists.size, lists_path+"/"+@story.id.to_s, :class => "lists_link "+l_class %>
 			<% end %>
 		</h2>
 		<%= render "comment_form" %>

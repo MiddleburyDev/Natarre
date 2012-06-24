@@ -1,6 +1,7 @@
 <header id="main-header" class="main-header">
 	<div id="login-stuff">
 		<% if session[:user_id] %>
+		<%= link_to "List", show_list_path %>
 		<%= link_to "Logout", logout_path %>
 		<%= link_to "Account", profile_path %>
 		<% @u=User.where(:id => session[:user_id]).first %>

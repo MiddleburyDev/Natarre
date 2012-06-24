@@ -243,7 +243,33 @@ class MobileApiController < ApplicationController
       # end
     end
     def reading_list
+        @user = User.find_by_id params[:user_ID]
+        @r = Array.new
+        if(@user)
+          @user.lists.each do |v|
+            s = Story.find_by_id v.story_id
+            if s.has_audio
+              audio_url = "http://s3.amazonaws.com/natarre.objects/"+s.token+"/"+s.token+".m4a"
+            end
+            if s.has_thumbnail
+              thumbnail_url = "http://s3.amazonaws.com/natarre.objects/"+s.token+"/"+s.token+".jpg"
+            end
+            @r.push({
+              :story_ID => s.id,
+              :author_ID => s.user_id,
+              :author_name => s.user.name,
+              :title => s.title,
+              :date_created => s.created_at.to_i,
+              :content => s.content,
+              :audio_file_url => audio_url,
+              :thumbnail_file_url => thumbnail_url,
+              :error_present => false
+              })
 
+          end
+        else
+          @r = MobileApiError.new
+        end
     end
 
     class MobileApiError

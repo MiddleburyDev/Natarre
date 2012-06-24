@@ -3,6 +3,7 @@ class Story < ActiveRecord::Base
 
   has_many :comments
   has_many :votes
+  has_many :lists
   belongs_to :user
 
   def prepare_for_viewing!

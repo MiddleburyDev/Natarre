@@ -24,8 +24,8 @@ class StoriesController < ApplicationController
   end
   def popular
     @stories = Story.all(:order => "created_at DESC")
-    @stories.sort! do |a,b| 
-      b.votes.size.to_f/b.views.to_f<=> a.votes.size.to_f/a.views.to_f 
+    @stories.sort! do |a,b|
+      b.votes.size.to_f/b.views.to_f<=> a.votes.size.to_f/a.views.to_f
     end
   end
 
@@ -118,16 +118,42 @@ class StoriesController < ApplicationController
 
   def add_list
     if session[:user_id]
-      @list = List.where(:user_id=>session[:user_id], :story_id=>params[:story_id])
+      @list = List.where(:user_id=>session[:user_id], :story_id=>params[:id])
       if @list.empty?
         @list = List.new
-        @list.story_id = params[:story_id]
-        @list.user_id = params[:user_id]
+        @list.story_id = params[:id]
+        @list.user_id = session[:user_id]
         @list.save
       end
     end
     show
     redirect_to @story
+  end
+  def show_list
+    if session[:user_id]
+      @lists = List.where(:user_id=>session[:user_id])
+      @listed_stories = Array.new
+      @lists.each do |a| @listed_stories.push a.story_id end
+      @listed_stories = Story.find(@listed_stories)
+      @favorites = Vote.where(:user_id=>session[:user_id])
+      @favorited_stories = Array.new
+      @favorites.each do |a| @favorited_stories.push a.story_id end
+      @favorited_stories = Story.find(@favorited_stories)
+    end
+  end
+  def remove_list
+    if session[:user_id]
+      @list = List.where(:user_id=>session[:user_id], :story_id=>params[:id]).first
+      @list.destroy 
+    end
+    redirect_to show_list_path
+  end
+  def remove_vote
+    if session[:user_id]
+      @favorite = Vote.where(:user_id=>session[:user_id], :story_id=>params[:id]).first
+      @favorite.destroy 
+    end
+    redirect_to show_list_path    
   end
 
 end

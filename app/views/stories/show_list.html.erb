@@ -1,0 +1,59 @@
+<%= render "layouts/header" %>
+<div id="main-container">
+	<div id="main" class="main main-content list">
+		<h1>Reading List</h1>
+		<% if !@listed_stories.empty? %>
+			<% @listed_stories.each do |s| %>
+			<div class="post <%= "audio" if s.has_audio %>">
+				<% s.prepare_for_viewing! %>
+				<h3><%= link_to s.title, s %></h3>
+				<% if s.has_audio %>
+					<audio src="http://s3.amazonaws.com/natarre.objects/<%= s.token %>/<%= s.token %>.mp3" controls></audio>
+				<% end %>
+				<% if !s.content.empty? %>
+					<% if s.content.html_safe[0,500] != s.content.html_safe %>
+						<p><%= s.content.html_safe[0,500]+"... "+link_to("Read More",s) %></p>
+					<% else %>
+						<p><%= s.content.html_safe %></p>
+					<% end %>
+				<% end %>
+				<footer>
+					<%= s.comments.size %> Comment<%= "s" if s.comments.size > 1 || s.comments.size == 0 %> |
+					<%= s.votes.size %> Favorite<%= "s" if s.votes.size > 1 || s.votes.size == 0 %> |  <%= link_to "Add a Comment", s %> |
+					<%= link_to "Remove from List", delete_list_path+"/"+s.id.to_s %>
+				</footer>
+			</div>
+
+			<% end %>
+		<% else %>
+		<p>You have not added any stories to your reading list.</p>
+		<% end %>
+		<h1>Favorited Stories</h1>
+		<% if !@favorited_stories.empty? %>
+			<% @favorited_stories.each do |s| %>
+			<div class="post <%= "audio" if s.has_audio %>">
+				<% s.prepare_for_viewing! %>
+				<h3><%= link_to s.title, s %></h3>
+				<% if s.has_audio %>
+					<audio src="http://s3.amazonaws.com/natarre.objects/<%= s.token %>/<%= s.token %>.mp3" controls></audio>
+				<% end %>
+				<% if !s.content.empty? %>
+					<% if s.content.html_safe[0,500] != s.content.html_safe %>
+						<p><%= s.content.html_safe[0,500]+"... "+link_to("Read More",s) %></p>
+					<% else %>
+						<p><%= s.content.html_safe %></p>
+					<% end %>
+				<% end %>
+				<footer>
+					<%= s.comments.size %> Comment<%= "s" if s.comments.size > 1 || s.comments.size == 0 %> |
+					<%= s.votes.size %> Favorite<%= "s" if s.votes.size > 1 || s.votes.size == 0 %> |  <%= link_to "Add a Comment", s %> |
+					<%= link_to "Remove from List", delete_favorite_path+"/"+s.id.to_s %>
+				</footer>
+			</div>
+
+			<% end %>
+		<% else %>
+		<p>You have not favorited any stories.</p>
+		<% end %>
+	</div>
+</div>

@@ -19,8 +19,10 @@ Natarre::Application.routes.draw do
   get "story/:id" => "stories#show", :as => :story
   match "comments/new" => "stories#add_comment", :as => :comments
   match "votes/new/(:id)" => "stories#add_vote", :as => :votes
+  match "votes/delete/(:id)" => "stories#remove_vote", :as => :delete_favorite
   match "list/new/(:id)" => "stories#add_list", :as => :lists
-
+  match "list/delete/(:id)" => "stories#remove_list", :as => :delete_list
+  match "list/show/" => "stories#show_list", :as => :show_list
   match "user/edit" => "users#edit", :as => :profile
   match "user/update" => "users#update", :as => :update_profile
 
