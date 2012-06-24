@@ -3,7 +3,7 @@
 	<%= hidden_field_tag(:story_id, @story.id) %>
 	<%= hidden_field_tag(:user_id, @user.id) %>
 
-	<%= label_tag "Add a Comment" %>:
+	<%= label_tag "Let "+@user.name.upcase+" hear your thoughts..." %>
 	<p><%= text_area_tag :content, nil, :rows => 5, :cols => 90 %></p>
 
 	<%= submit_tag "submit" %>

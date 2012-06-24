@@ -14,7 +14,12 @@
 			<p>or</p>
 			<p><%= label_tag 'content','Enter a Written Narrative' %></p>
 			<p><%= text_area_tag 'content', nil, :placeholder => 'Your story', :rows => 10, :columns => 80, :class => "content-input" %></p>
+			<% if !session[:user_id] %>
+			<p>You must <%= link_to "log in or register", login_path %> to upload a story.</p> 
+			<p><%= submit_tag 'Publish!', :class => "button", :disabled => true %></p>
+			<% else %>
 			<p><%= submit_tag 'Publish!', :class => "button" %></p>
+			<% end %>
 		<% end %>
 	</div>
 </div>

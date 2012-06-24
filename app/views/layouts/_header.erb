@@ -4,8 +4,10 @@
 		<%= link_to "Logout", logout_path %>
 		<%= link_to "Account", profile_path %>
 		<% @u=User.where(:id => session[:user_id]).first %>
-		<% a = '<img src="http://graph.facebook.com/'+@u.fb_id.to_s+'/picture" alt=""/>' %>
+		<% if @u.fb_id %>
+		<% a = '<img src="http://graph.facebook.com/'+@u.fb_id.to_s+'/picture" alt=""/>' if @u.fb_id %>
 		<%= a.html_safe if @u.fb_id %>
+		<% end %>
 		<% else %>
 		<%= link_to "Login", login_path %>
 		<%= link_to "Register", register_path %>

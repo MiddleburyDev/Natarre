@@ -45,31 +45,35 @@ class MobileApiController < ApplicationController
       @user = User.find_by_id(params[:user_id])
       @story = Story.new
       @story.title = params[:title]
+      @story.token = Digest::MD5.hexdigest(@story.title+Time.now.to_i.to_s)
       @story.prompt_id = params[:prompt_id]
+      @story.views=1
       text_file = params[:text]
       audio_file = params[:audio]
-      if text_file
+      if !text_file.nil?
         text = text_file.read
       end
+      if params[:content]
+        text = params[:content]
+      end
       if audio_file
-        if uploaded_audio.content_type = "audio/mp3"
+        if audio_file.content_type = "audio/mp3"
           extension = ".mp3"
-        elsif uploaded_audio.content_type = "audio/m4a"
+        elsif audio_file.content_type = "audio/m4a"
           extension = ".m4a"
         end
-        AWS::S3::S3Object.store(token+"/"+token+extension,uploaded_audio.read,AMAZON_NATARRE_BUCKET,:access => :public_read)
+        AWS::S3::S3Object.store(@story.token+"/"+@story.token+extension,audio_file.read,AMAZON_NATARRE_BUCKET,:access => :public_read)
         has_audio=true
       end
       @story.has_audio=has_audio
-      @story.token = Digest::MD5.hexdigest(@story.title+Time.now.to_i.to_s)
       if @story.save
         @r = MobileApiResponse.new
         @r.story_id=@story.id
       else
-        @r = MobileApiError.new
+        @r = MobileApiError.new 1
       end
     else
-      @r = MobileApiError.new
+      @r = MobileApiError.new 2
     end
     render :json => @r
 
@@ -159,16 +163,16 @@ class MobileApiController < ApplicationController
           thumbnail_url = "http://s3.amazonaws.com/natarre.objects/"+s.token+"/"+s.token+".jpg"
         end
         @r.push({
-                  :story_ID => s.id,
-                  :author_ID => s.user_id,
-                  :author_name => s.user.name,
-                  :title => s.title,
-                  :date_created => s.created_at.to_i,
-                  :content => s.content,
-                  :audio_file_url => audio_url,
-                  :thumbnail_file_url => thumbnail_url,
-                  :error_present => false
-        })
+          :story_ID => s.id,
+          :author_ID => s.user_id,
+          :author_name => s.user.name,
+          :title => s.title,
+          :date_created => s.created_at.to_i,
+          :content => s.content,
+          :audio_file_url => audio_url,
+          :thumbnail_file_url => thumbnail_url,
+          :error_present => false
+          })
       end
     else
       @r = MobileApiError.new
@@ -178,54 +182,85 @@ class MobileApiController < ApplicationController
   def popular
     if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
       @stories = Story.all(:order => "created_at DESC")
-      @r = Array.new
-      @stories.each do |s|
-        if s.has_audio
-          audio_url = "http://s3.amazonaws.com/natarre.objects/"+s.token+"/"+s.token+".m4a"
+      @stories.sort! do |a,b| b.votes.size/b.views <=> a.votes.size/a.views end
+        @r = Array.new
+        @stories.each do |s|
+          if s.has_audio
+            audio_url = "http://s3.amazonaws.com/natarre.objects/"+s.token+"/"+s.token+".m4a"
+          end
+          if s.has_thumbnail
+            thumbnail_url = "http://s3.amazonaws.com/natarre.objects/"+s.token+"/"+s.token+".jpg"
+          end
+          @r.push({
+            :story_ID => s.id,
+            :author_ID => s.user_id,
+            :author_name => s.user.name,
+            :title => s.title,
+            :date_created => s.created_at.to_i,
+            :content => s.content,
+            :audio_file_url => audio_url,
+            :thumbnail_file_url => thumbnail_url,
+            :error_present => false
+            })
         end
-        if s.has_thumbnail
-          thumbnail_url = "http://s3.amazonaws.com/natarre.objects/"+s.token+"/"+s.token+".jpg"
-        end
-        @r.push({
-                  :story_ID => s.id,
-                  :author_ID => s.user_id,
-                  :author_name => s.user.name,
-                  :title => s.title,
-                  :date_created => s.created_at.to_i,
-                  :content => s.content,
-                  :audio_file_url => audio_url,
-                  :thumbnail_file_url => thumbnail_url,
-                  :error_present => false
-        })
+      else
+        @r = MobileApiError.new
       end
-    else
-      @r = MobileApiError.new
+      render :json => @r
     end
-    render :json => @r
-  end
 
-def favorites
-  
-end
-def reading_list
-  
-end
-  
-  class MobileApiError
-    attr_accessor :error_number
-    attr_accessor :error_string
-    def initialize num=-1
-      @error_number=num
-      @error_present="true"
+    def favorites
+      if params[:email] && params[:token] == Digest::MD5.hexdigest(params[:email]+"Te99y")
+        @user = User.find_by_id params[:user_ID]
+        @r = Array.new
+        if(@user)
+          @user.votes.each do |v|
+            s = Story.find_by_id v.story_id
+            if s.has_audio
+              audio_url = "http://s3.amazonaws.com/natarre.objects/"+s.token+"/"+s.token+".m4a"
+            end
+            if s.has_thumbnail
+              thumbnail_url = "http://s3.amazonaws.com/natarre.objects/"+s.token+"/"+s.token+".jpg"
+            end
+            @r.push({
+              :story_ID => s.id,
+              :author_ID => s.user_id,
+              :author_name => s.user.name,
+              :title => s.title,
+              :date_created => s.created_at.to_i,
+              :content => s.content,
+              :audio_file_url => audio_url,
+              :thumbnail_file_url => thumbnail_url,
+              :error_present => false
+              })
+
+          end
+        else
+          @r = MobileApiError.new
+        end
+      else
+        @r = MobileApiError.new
+      end
+    end
+    def reading_list
+
+    end
+
+    class MobileApiError
+      attr_accessor :error_number
+      attr_accessor :error_string
+      def initialize num=-1
+        @error_number=num
+        @error_present="true"
+      end
+    end
+    class MobileApiResponse
+      attr_accessor :user_id
+      attr_accessor :story_id
+      attr_accessor :token
+      def initialize
+        @error_present="false"
+        @error_number="0"
+      end
     end
   end
-  class MobileApiResponse
-    attr_accessor :user_id
-    attr_accessor :story_id
-    attr_accessor :token
-    def initialize
-      @error_present="false"
-      @error_number="0"
-    end
-  end
-end

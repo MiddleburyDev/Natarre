@@ -25,6 +25,70 @@
  .clear {
  	clear: both;
  }
+
+
+ button,
+ input[type=submit] {
+ 	cursor: pointer;
+ 	border:1pt solid #666;
+ 	font-size:25px;
+ 	font-family: Geared, serif;
+ 	font-weight:lighter;
+ 	padding:10px 20px;	
+ 	-moz-border-radius: 3px;
+ 	-webkit-border-radius: 3px;
+ 	border-radius: 3px;
+ 	-moz-background-clip: padding;
+ 	-webkit-background-clip: padding-box;
+ 	background-clip: padding-box;
+ 	background-color: #ccc;
+ 	-moz-box-shadow: inset 0 0 5px rgba(0,0,0,.75);
+ 	-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,.75);
+ 	box-shadow: inset 0 0 5px rgba(0,0,0,.75);
+ 	&:hover {
+ 		-moz-border-radius: 3px;
+ 		-webkit-border-radius: 3px;
+ 		border-radius: 3px;
+ 		-moz-background-clip: padding;
+ 		-webkit-background-clip: padding-box;
+ 		background-clip: padding-box;
+ 		background-color: #bbb;
+ 		-moz-box-shadow: inset 0 0 5px rgba(0,0,0,.75);
+ 		-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,.75);
+ 		box-shadow: inset 0 0 5px rgba(0,0,0,.75);
+ 	}
+ 	&:active {
+ 		-moz-border-radius: 3px;
+ 		-webkit-border-radius: 3px;
+ 		border-radius: 3px;
+ 		-moz-background-clip: padding;
+ 		-webkit-background-clip: padding-box;
+ 		background-clip: padding-box;
+ 		background-color: #bbb;
+ 		-moz-box-shadow: inset 0 0 8px rgba(0,0,0,.75);
+ 		-webkit-box-shadow: inset 0 0 8px rgba(0,0,0,.75);
+ 		box-shadow: inset 0 0 8px rgba(0,0,0,.75); 						
+ 	}
+ }
+ input, textarea {
+ 	&[type=text],
+ 	&[type=password],
+ 	&[type=tel],
+ 	&[type=email] {
+ 		width: 500px;
+ 	}
+ 	&:focus {
+ 		outline: none;
+ 	}
+ 	&[type=file] {
+ 		border:0;
+ 	}
+ 	font-family: sans-serif;
+ 	font-size: 14px;	
+ 	padding: 15px;
+ 	border-radius: 3px;
+ 	border:1pt solid #666;
+ }	
  html {
  	margin:0;
  	padding:0;
@@ -38,6 +102,9 @@
  			&:link,
  			&:visited {
  				color:black;
+ 			}
+ 			&:hover {
+ 				color:rgb(205,104,86);
  			}
  			&:focus {
  				outline:none;
@@ -239,7 +306,7 @@
  						padding:15px 30px 10px;
  					}
  				}
- 				.button {
+ 				.button, button {
  					cursor: pointer;
  					-moz-border-radius: 3px;
  					-webkit-border-radius: 3px;
@@ -301,6 +368,9 @@
 
  					a {
  						text-decoration:underline;
+ 						&:hover {
+ 							color:rgb(205,104,86);
+ 						}
  					}
  					footer {
  						font-size:12px;
@@ -324,7 +394,7 @@
  				background-repeat: no-repeat;
  				&:hover,
  				&.active {
-	 				background-image:url(/assets/FavoriteACTIVE.png);
+ 					background-image:url(/assets/FavoriteACTIVE.png);
  				}
  			}
  			.comments-title {
@@ -337,13 +407,13 @@
  			form {
  				display:inline;
  				.submit-button {
-	 				display:inline;
-	 				background:transparent;
-	 				border:0;
-	 				font-size: 1em;
-		 			font-family: Geared, serif;
+ 					display:inline;
+ 					background:transparent;
+ 					border:0;
+ 					font-size: 1em;
+ 					font-family: Geared, serif;
  				}
-			}
+ 			}
  		}
  		footer.main-footer {
  			width:800px;
@@ -359,4 +429,3 @@
  	font-family: "Georgia",serif;
  	font-weight: lighter; 					
  }
-

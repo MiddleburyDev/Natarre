@@ -6,8 +6,11 @@ class Story < ActiveRecord::Base
   belongs_to :user
 
   def prepare_for_viewing!
-
-    @attributes["content"].gsub!("\n", '</p><p>')
+  	if !@attributes["content"].nil?
+	    @attributes["content"].gsub!("\n", '</p><p>')
+	else
+		@attributes["content"]=""
+	end
   	
   end
 end

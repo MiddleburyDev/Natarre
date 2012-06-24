@@ -13,13 +13,11 @@
 			<% if s.has_audio %>
 			<audio src="http://s3.amazonaws.com/natarre.objects/<%= s.token %>/<%= s.token %>.mp3" controls></audio>
 			<% end %>
-			<% if !s.content.empty? %>
 				<% if s.content.html_safe[0,500] != s.content.html_safe %>
 					<p><%= s.content.html_safe[0,500]+"... "+link_to("Read More",s) %></p>
 				<% else %>
 					<p><%= s.content.html_safe %></p>
 				<% end %>
-			<% end %>
 			<footer>
 				<%= s.comments.size %> Comment<%= "s" if s.comments.size > 1 || s.comments.size == 0 %> |
 				<%= s.votes.size %> Favorite<%= "s" if s.votes.size > 1 || s.votes.size == 0 %> |  <%= link_to "Add a Comment", s %>

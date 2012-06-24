@@ -24,10 +24,7 @@ class StoriesController < ApplicationController
   end
   def popular
     @stories = Story.all(:order => "created_at DESC")
-    @stories.each do |s|
-
-
-    end
+    @stories.sort! do |a,b| b.votes.size/b.views <=> a.votes.size/a.views end
   end
 
   def show
@@ -74,6 +71,7 @@ class StoriesController < ApplicationController
 
     @story = Story.new
     @story.token = token
+    @story.views=1
     @story.title = params[:title]
     @story.has_audio = has_audio
     @story.content = params[:content]
@@ -107,8 +105,8 @@ class StoriesController < ApplicationController
       @vote = Vote.where(:user_id=>session[:user_id], :story_id=>params[:id])
       if @vote.empty?
         @vote = Vote.new
-        @vote.story_id = params[:story_id]
-        @vote.user_id = params[:user_id]
+        @vote.story_id = params[:id]
+        @vote.user_id = session[:user_id]
         @vote.save
       end
     end
@@ -119,7 +117,7 @@ class StoriesController < ApplicationController
   def add_list
     if session[:user_id]
       @list = List.where(:user_id=>session[:user_id], :story_id=>params[:story_id])
-      if !@list
+      if @list.empty?
         @list = List.new
         @list.story_id = params[:story_id]
         @list.user_id = params[:user_id]
