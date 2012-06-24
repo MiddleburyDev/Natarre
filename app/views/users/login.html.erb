@@ -1,12 +1,17 @@
-<%= form_tag ({:controller => "sessions", :action => "create"}) do %>
+<%= render "layouts/header" %>
+<div id="main-container">
+	<div id="main" class="main main-content prompts">
+		<%= form_tag ({:controller => "sessions", :action => "create"}) do %>
 
-	<%= label_tag :email %>
-	<%= text_field_tag :email %><br/>
+		<%= label_tag :email %>
+		<%= text_field_tag :email %><br/>
 
-	<%= label_tag :password %>
-	<%= password_field_tag :password %><br/>
+		<%= label_tag :password %>
+		<%= password_field_tag :password %><br/>
 
-	<%= submit_tag "Login" %>	
+		<%= submit_tag "Login" %>	
 
 
-<% end %>
+		<% end %>
+	</div>
+</div>

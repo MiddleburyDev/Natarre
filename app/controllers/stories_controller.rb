@@ -8,11 +8,18 @@ class StoriesController < ApplicationController
     @stories ||= Array.new
   end
 
-  def prompts
-    @prompt = Prompt.find(:all,:order => "created_at DESC").first
+  def prompt
+    if params[:id]
+      @prompt = Prompt.find(params[:id])
+    else
+      @prompt = Prompt.find(:all,:order => "created_at DESC").first
+    end
     @stories = Story.where(:prompt_id => @prompt.id).find(:all,:order => "created_at DESC" )
   end
+  def prompts
+    @prompts = Prompt.all(:order => "created_at DESC")
 
+  end
   def popular
     @stories = Story.all(:order => "created_at DESC")
 

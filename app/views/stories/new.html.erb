@@ -7,13 +7,14 @@
 			<%= hidden_field_tag :prompt_id, params[:id] %>
 			<h1><%= Prompt.where(:id => params[:id]).first.question %></h1>
 			<% else %>
-			<h1>Take it away!</h1>
+			<h1 class="submit-header">Tell Your Story!</h1>
 			<% end %>
-			<p><%= text_field_tag 'title', nil, :placeholder=> "Story Title", :maxlength => 80, :size => 80, :class => "title-input" %></p>
-			<p><%= text_area_tag 'content', nil, :placeholder => 'Your story', :rows => 10, :columns => 80 %></p>
-			<p><%= label_tag 'audio', 'Optional recorded presentation of your story:' %> <%= file_field_tag 'audio' %></p>
-			<p><%= label_tag 'picture', 'Story thumnail:' %> <%= file_field_tag 'picture' %></p>
-			<p><%= submit_tag 'Publish!' %></p>
+			<p><%= text_field_tag 'title', nil, :placeholder=> "Enter a Title...", :maxlength => 80, :size => 80, :class => "title-input" %></p>
+			<p><%= label_tag 'audio', 'Submit a spoken word story...' %> <%= file_field_tag 'audio' %></p>
+			<p>or</p>
+			<p><%= label_tag 'content','Enter a Written Narrative' %></p>
+			<p><%= text_area_tag 'content', nil, :placeholder => 'Your story', :rows => 10, :columns => 80, :class => "content-input" %></p>
+			<p><%= submit_tag 'Publish!', :class => "button" %></p>
 		<% end %>
 	</div>
 </div>

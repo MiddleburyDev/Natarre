@@ -5,8 +5,12 @@ Natarre::Application.routes.draw do
 
   get "prompts/new" => "prompts#new", :as => :new_prompt
   post "prompts/create" => "prompts#create", :as => :create_prompt
+  get "prompt" => "stories#prompt", :as => :prompt
+  get "prompt/(:id)" => "stories#prompt", :as => :prompt
   get "prompts" => "stories#prompts", :as => :prompts
   get "popular" => "stories#popular", :as => :popular
+
+
   get "stories" => "stories#index", :as => :stories_index
   post "stories/create" => "stories#create", :as => :stories
   get "stories" => "stories#index", :as => :stories_index  
@@ -27,7 +31,9 @@ Natarre::Application.routes.draw do
   match "mobile/api/story/upload" => "mobile_api#upload"
   match "mobile/api/story/comment" => "mobile_api#comment"
   match "mobile/api/stories/one" => "mobile_api#story"
-  root :to => "stories#prompts"
+
+  match "credits" => "home#credits", :as => :credits
+  root :to => "stories#prompt"
 
 
 end

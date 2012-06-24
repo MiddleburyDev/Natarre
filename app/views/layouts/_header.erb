@@ -1,8 +1,11 @@
 <header id="main-header" class="main-header">
+	<div id="login-stuff">
+		<%= link_to "Login", login_path %>
+	</div>
 	<div id="header-content" class="header-content">
 		<nav id="main-nav" class="main-nav">
 
-			<%= link_to "prompts", prompts_path %>
+			<%= link_to "all stories", prompts_path %>
 			<%= link_to "popular", popular_path %>
 			<%= link_to "submit", new_story_path %>
 

@@ -4,4 +4,9 @@ class Story < ActiveRecord::Base
   has_many :comments
   belongs_to :user
 
+  def prepare_for_viewing!
+
+    @attributes["content"].gsub!("\n", '</p><p>')
+  	
+  end
 end

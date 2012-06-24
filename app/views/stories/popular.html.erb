@@ -1,12 +1,25 @@
 <%= render "layouts/header" %>
 <div id="main-container">
 	<div id="main" class="main main-content">
-		<% @stories.each do |a| %>
-		<h1><%= link_to a.title, a %></h1>
-		<% if a.has_audio %>
-		<audio src="http://s3.amazonaws.com/natarre.objects/<%= a.token %>/<%= a.token %>.mp3" controls></audio>
-		<% end %>
-		<p><%= a.content %></p>
+		<% @stories.each do |s| %>
+		<div class="post <%= "audio" if s.has_audio %>">
+			<% s.prepare_for_viewing! %>
+			<h1><%= link_to s.title, s %></h1>
+			<% if s.has_audio %>
+				<audio src="http://s3.amazonaws.com/natarre.objects/<%= s.token %>/<%= s.token %>.mp3" controls></audio>
+			<% end %>
+			<% if !s.content.empty? %>
+				<% if s.content.html_safe[0,500] != s.content.html_safe %>
+					<p><%= s.content.html_safe[0,500]+"... "+link_to("Read More",s) %></p>
+				<% else %>
+					<p><%= s.content.html_safe %></p>
+				<% end %>
+			<% end %>
+			<footer>
+				<%= s.comments.size %> Comments | <%= link_to "Add a Comment", s %>
+			</footer>
+		</div>
+
 		<% end %>
 	</div>
 </div>
