@@ -12,7 +12,16 @@
  *= require_tree .
  */
 
-
+@font-face {
+    font-family: Geared;
+    src: url(/assets/GearedSlab.ttf);
+    font-weight:normal;
+}
+@font-face {
+    font-family: Geared;
+    src: url(/assets/GearedSlab-Light.ttf);
+    font-weight:lighter;
+}
  .clear {
  	clear: both;
  }
@@ -30,13 +39,38 @@
  			&:visited {
  				color:black;
  			}
+ 			&:focus {
+ 				outline:none;
+ 			}
+ 		}
+ 		form.upload-form {
+ 			input, textarea {
+ 				&[type=text],
+ 				&[type=password],
+ 				&[type=tel],
+ 				&[type=email] {
+					width: 500px;
+ 				}
+ 				&:focus {
+ 					outline: none;
+ 				}
+				font-family: sans-serif;
+				display: block;
+				font-size: 14px;	
+				padding: 5px;
+				border-radius: 3px;
+				border:1pt solid #666;
+ 			}
+ 			textarea {
+ 				width: 500px;
+ 			}
  		}
  		header#main-header {
  			background:url(/assets/TopTexture.png);
  			box-shadow: 0px -5px 4px #333 inset;
  			-webkit-box-shadow: 0px -1px 4px #333 inset;
  			-moz-box-shadow: 0px -1px 4px #333 inset;
- 			font-family: 'Belgrano', serif;
+ 			font-family: Geared, serif;
  			#header-content {
  				padding-top:60px;
  				padding-bottom:10px;
@@ -62,6 +96,7 @@
  							background-image: url(/assets/BlueHighLight.png);
  							background-position: center center;
  							background-repeat:no-repeat;
+ 							background-size: contain;
  						}
  					}
  				}
@@ -74,7 +109,15 @@
  				font-family: sans-serif;
  				font-weight: lighter;
  				h1,h2,h3,h4,h5,h6 {
- 					font-family: 'Belgrano', serif;
+ 					font-family: Geared, serif;
+ 				}
+ 				h3 {
+ 					font-weight:lighter;
+ 					font-size:24px;
+ 				}
+ 				.author {
+ 					font-size:15px;
+ 					color:#666;
  				}
  			}
  		}

@@ -11,6 +11,7 @@ Natarre::Application.routes.draw do
   post "stories/create" => "stories#create", :as => :stories
   get "stories" => "stories#index", :as => :stories_index  
   get "stories/new" => "stories#new", :as => :new_story
+  get "stories/new/:id" => "stories#new", :as => :new_story_prompt
   get "story/:id" => "stories#show", :as => :story
   match "comments/new" => "stories#add_comment", :as => :comments
 
@@ -21,10 +22,11 @@ Natarre::Application.routes.draw do
   match "register" => "users#register", :as => :register
   match "create" => "users#create", :as => :users
 
-  match "mobile/api/register" => "mobile_api#register"
-  match "/mobile/api/login/natarre" => "mobile_api#login"
-
-
+  match "mobile/api/register/natarre" => "mobile_api#register"
+  match "mobile/api/login/natarre" => "mobile_api#login"
+  match "mobile/api/story/upload" => "mobile_api#upload"
+  match "mobile/api/story/comment" => "mobile_api#comment"
+  match "mobile/api/stories/one" => "mobile_api#story"
   root :to => "stories#prompts"
 
 

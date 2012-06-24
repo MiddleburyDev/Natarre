@@ -3,6 +3,9 @@
 	<div id="main" class="main main-content">
 		<% @stories.each do |a| %>
 		<h1><%= link_to a.title, a %></h1>
+		<% if a.has_audio %>
+		<audio src="http://s3.amazonaws.com/natarre.objects/<%= a.token %>/<%= a.token %>.mp3" controls></audio>
+		<% end %>
 		<p><%= a.content %></p>
 		<% end %>
 	</div>

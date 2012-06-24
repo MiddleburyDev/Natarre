@@ -2,6 +2,17 @@
 <div id="main-container">
 	<div id="main" class="main main-content">
 		<h1><%= @prompt.question %></h1>
-		<p><%= link_to "Respond to this question", new_story_path %></p>
+		<% if @prompt.stories.empty? %>
+		<p>No one has responded to this prompt yet. <%= link_to "Be the first.", new_story_path %></p>
+		<% else %>
+		<% @stories.each do |s| %>
+		<h3><%= s.title %><span class="author"> by <%= s.user.name %></span></h3>
+		<% if s.has_audio %>
+		<audio src="http://s3.amazonaws.com/natarre.objects/<%= s.token %>/<%= s.token %>.mp3" controls></audio>
+		<% end %>
+		<p><%= s.content %></p>
+		<% end %>
+		<% end %>
+		<p><%= link_to "Respond to this question", new_story_path+"/"+@prompt.id.to_s %></p>
 	</div>
 </div>
