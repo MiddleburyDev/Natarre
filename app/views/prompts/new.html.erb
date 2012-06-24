@@ -1,0 +1,10 @@
+<%= render "layouts/header" %>
+<div id="main-container">
+	<div id="main" class="main main-content">
+		<%= form_tag(:action => :create) do %>
+		<%= label_tag :question %>
+		<%= text_field_tag :question %>
+		<%= submit_tag 'Publish!' %>
+		<% end %>
+	</div>
+</div>
