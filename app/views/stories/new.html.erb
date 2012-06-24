@@ -2,7 +2,7 @@
 <%= render "layouts/header" %>
 <div id="main-container">
 	<div id="main" class="main main-content">
-		<%= form_tag('/stories/create', :multipart => true, :method => :post) do %>
+		<%= form_tag({:action => "create"}, :multipart => true, :method => :post) do %>
 			<%= text_field_tag 'title', nil, :placeholder=> "Story Title", :maxlength => 80, :size => 80, :class => "title-input" %>
 			<%= label_tag 'content', 'Your story:' %>
 			<%= text_area_tag 'content', nil, :rows => 10, :columns => 80 %>

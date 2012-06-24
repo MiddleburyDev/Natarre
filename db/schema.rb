@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120623211421) do
+ActiveRecord::Schema.define(:version => 20120624005004) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(:version => 20120623211421) do
     t.string   "thumbnail_content_type"
     t.integer  "thumbnail_file_size"
     t.datetime "thumbnail_updated_at"
+    t.string   "token"
   end
 
   create_table "users", :force => true do |t|

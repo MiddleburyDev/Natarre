@@ -1,2 +1,14 @@
 SOUNDCLOUD_ID = "c4ce5019d3a69914be53b15441d3b638"
 SOUNDCLOUD_SECRET = "ec6fe1ce7bcd105266f0b705d431c7fe"
+
+AMAZON_ACCESS_KEY_ID="AKIAIBZPGM6MAV67MKKA"
+AMAZON_SECRET_ACCESS_KEY="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"
+AMAZON_NATARRE_BUCKET="natarre.objects"
+
+
+require "aws/s3"
+
+con = AWS::S3::Base.establish_connection!(
+  :access_key_id     => AMAZON_ACCESS_KEY_ID,
+  :secret_access_key => AMAZON_SECRET_ACCESS_KEY
+)
